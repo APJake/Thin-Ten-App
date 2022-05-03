@@ -16,6 +16,8 @@ val OnBackgroundColor = Color(0xff000000)
 val SurfaceColor = Color(0xffffffff)
 val OnSurfaceColor = Color(0xFF494949)
 
+val HintColor = Color(0xFF7E7E7E)
+
 
 val FavouriteColor = Color(0xFFFFA7BC)
 val RecentColor = Color(0xFFCDDA83)

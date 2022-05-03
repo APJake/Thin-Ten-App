@@ -22,12 +22,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zpmk.thinten.ui.theme.FavouriteColor
-import com.zpmk.thinten.ui.theme.OnSurfaceColor
-import com.zpmk.thinten.ui.theme.RecentColor
-import com.zpmk.thinten.ui.theme.ThinTenTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.rememberPagerState
+import com.zpmk.thinten.ui.components.MainBannerItem
+import com.zpmk.thinten.ui.theme.*
+import com.zpmk.thinten.util.CourseGenerator
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +47,7 @@ class MainActivity : ComponentActivity() {
 fun MainTheme(){
     ThinTenTheme {
         Surface(color = MaterialTheme.colors.background) {
-           Column() {
+           Column {
                Spacer(modifier = Modifier.height(10.dp))
                Row (
                    modifier = Modifier
@@ -51,15 +56,8 @@ fun MainTheme(){
                    horizontalArrangement = Arrangement.SpaceBetween,
                ){
                    Column {
-                       Text(
-                           text = "Good morning",
-                           fontSize = 11.sp
-                       )
-                       Text(
-                           text = "Anissa Saraswati",
-                           fontSize = 18.sp,
-                           fontWeight = FontWeight.Bold
-                       )
+                       SmallText(text = "Good Morning")
+                       TitleText(text = "Anissa Saraswati")
                    }
                    Image(
                        painter = painterResource(id = R.drawable.jisoo),
@@ -87,9 +85,107 @@ fun MainTheme(){
                        onClick = {}
                    )
                }
+               Spacer(modifier = Modifier.height(20.dp))
+               MainBanner()
            }
         }
     }
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+private fun MainBanner(){
+    val courseList = CourseGenerator.genereate()
+    Column {
+        val pagerState = rememberPagerState()
+        BigText(text = "Start Your Day", modifier = Modifier.padding(horizontal = 25.dp))
+        Spacer(modifier = Modifier.height(15.dp))
+        HorizontalPager(
+            count = 3,
+            state = pagerState,
+            // Add 32.dp horizontal padding to 'center' the pages
+            contentPadding = PaddingValues(horizontal = 40.dp),
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxWidth(),
+        ) { page ->
+            MainBannerItem(course = courseList[page])
+        }
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(16.dp),
+            activeColor = SecondaryColor,
+            inactiveColor = HintColor
+        )
+    }
+}
+
+@Composable
+fun TitleText(
+    modifier: Modifier= Modifier,
+    text: String,
+    color: Color = OnBackgroundColor,
+    fontWeight: FontWeight = FontWeight.Bold,
+    size: TextUnit = 20.sp
+){
+    Text(
+        text = text,
+        fontSize = size,
+        fontWeight = fontWeight,
+        color = color,
+        modifier = modifier
+    )
+}
+@Composable
+fun BigText(
+    modifier: Modifier= Modifier,
+    text: String,
+    color: Color = OnBackgroundColor,
+    fontWeight: FontWeight = FontWeight.Bold,
+    size: TextUnit = 18.sp
+){
+    Text(
+        text = text,
+        fontSize = size,
+        fontWeight = fontWeight,
+        color = color,
+        modifier = modifier
+    )
+}
+@Composable
+fun NormalText(
+    modifier: Modifier= Modifier,
+    text: String,
+    color: Color = OnBackgroundColor,
+    fontWeight: FontWeight = FontWeight.Normal,
+    size: TextUnit = TextUnit.Unspecified
+){
+    Text(
+        text = text,
+        fontSize = size,
+        fontWeight = fontWeight,
+        color = color,
+        modifier = modifier
+
+    )
+}
+@Composable
+fun SmallText(
+    modifier: Modifier= Modifier,
+    text: String,
+    color: Color = HintColor,
+    fontWeight: FontWeight = FontWeight.Normal,
+    size: TextUnit = 10.sp
+){
+    Text(
+        text = text,
+        fontSize = size,
+        fontWeight = fontWeight,
+        color = color,
+        modifier = modifier
+    )
 }
 
 @Composable
