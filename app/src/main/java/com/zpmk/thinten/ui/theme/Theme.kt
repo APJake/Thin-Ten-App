@@ -1,30 +1,30 @@
 package com.zpmk.thinten.ui.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.TextStyle
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = PrimaryColor,
+    primaryVariant = PrimaryColor,
+    secondary = SecondaryColor
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    primary = PrimaryColor,
+    primaryVariant = PrimaryColor,
+    secondary = SecondaryColor,
+    background = BackgroundColor,
+    surface = SurfaceColor,
+    onSecondary = OnSecondaryColor,
+    onPrimary = OnPrimaryColor,
+    onSurface = OnSurfaceColor,
+    onBackground = OnBackgroundColor,
 )
 
 @Composable
